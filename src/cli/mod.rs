@@ -7,6 +7,7 @@ mod init;
 mod plugin;
 mod serve;
 mod sourcemap;
+mod sync;
 mod syncback;
 mod upload;
 
@@ -22,6 +23,7 @@ pub use self::init::{InitCommand, InitKind};
 pub use self::plugin::{PluginCommand, PluginSubcommand};
 pub use self::serve::ServeCommand;
 pub use self::sourcemap::SourcemapCommand;
+pub use self::sync::SyncCommand;
 pub use self::syncback::SyncbackCommand;
 pub use self::upload::UploadCommand;
 
@@ -48,6 +50,7 @@ impl Options {
             Subcommand::FmtProject(subcommand) => subcommand.run(),
             Subcommand::Doc(subcommand) => subcommand.run(),
             Subcommand::Plugin(subcommand) => subcommand.run(),
+            Subcommand::Sync(subcommand) => subcommand.run(),
             Subcommand::Syncback(subcommand) => subcommand.run(self.global),
         }
     }
@@ -122,6 +125,7 @@ pub enum Subcommand {
     FmtProject(FmtProjectCommand),
     Doc(DocCommand),
     Plugin(PluginCommand),
+    Sync(SyncCommand),
     Syncback(SyncbackCommand),
 }
 
