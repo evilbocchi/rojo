@@ -70,9 +70,7 @@ impl SyncCommand {
         // - Do not remove any properties that exist in the input file
         patch_set.removed_instances.clear();
         for update in &mut patch_set.updated_instances {
-            update
-                .changed_properties
-                .retain(|_, value| value.is_some());
+            update.changed_properties.retain(|_, value| value.is_some());
         }
 
         apply_patch_set(&mut tree_old, patch_set);
@@ -135,9 +133,10 @@ fn read_dom(path: &Path, file_kind: FileKind) -> anyhow::Result<WeakDom> {
             process_model_dom(temp_tree)
         }
         FileKind::Rbxmx => {
-            let temp_tree = rbx_xml::from_reader(content, xml_decode_config()).with_context(|| {
-                format!("Could not deserialize XML model file at {}", path.display())
-            })?;
+            let temp_tree =
+                rbx_xml::from_reader(content, xml_decode_config()).with_context(|| {
+                    format!("Could not deserialize XML model file at {}", path.display())
+                })?;
             process_model_dom(temp_tree)
         }
     }
@@ -161,9 +160,7 @@ fn process_model_dom(dom: WeakDom) -> anyhow::Result<WeakDom> {
         }
         Ok(new_tree)
     } else {
-        bail!(
-            "Rojo does not currently support models with more than one Instance at the Root!"
-        );
+        bail!("Rojo does not currently support models with more than one Instance at the Root!");
     }
 }
 
@@ -202,5 +199,3 @@ fn write_tree_to_file(tree: &RojoTree, output: &Path, kind: FileKind) -> anyhow:
     file.flush()?;
     Ok(())
 }
-
-

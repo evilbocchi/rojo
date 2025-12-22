@@ -167,7 +167,9 @@ jobs:
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
       - name: Build WASM
-        run: wasm-pack build --target bundler
+        run: |
+          sed -i 's/crate-type = \["rlib"\]/crate-type = ["rlib", "cdylib"]/' Cargo.toml
+          wasm-pack build --target bundler --out-name rojo
 
       - name: Generate Artifact Name
         shell: bash

@@ -39,7 +39,7 @@ members = ["crates/*"]
 
 [lib]
 name = "librojo"
-crate-type = ["cdylib", "rlib"]
+crate-type = ["rlib"]
 path = "src/lib.rs"
 
 [[bench]]
@@ -77,6 +77,7 @@ humantime = "2.1.0"
 jod-thread = "0.1.2"
 log = "0.4.21"
 num_cpus = "1.16.0"
+opener = "0.5.2"
 rayon = "1.9.0"
 ritz = "0.1.0"
 roblox_install = "1.0.0"
@@ -100,7 +101,6 @@ indexmap = { version = "2.10.0", features = ["serde"] }
 [target.'cfg(not(all(target_arch = "wasm32", target_os = "unknown")))'.dependencies]
 hyper = { version = "0.14.28", features = ["server", "tcp", "http1"] }
 hyper-tungstenite = "0.11.0"
-opener = "0.5.2"
 reqwest = { version = "0.11.24", default-features = false, features = [
     "blocking",
     "json",
@@ -111,8 +111,6 @@ tokio = { version = "1.36.0", features = ["rt", "rt-multi-thread", "macros"] }
 [target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dependencies]
 getrandom = { version = "0.2", features = ["js"] }
 getrandom_03 = { package = "getrandom", version = "0.3", features = ["wasm_js"] }
-reqwest = { version = "0.11.24", default-features = false, features = ["json"] }
-tokio = { version = "1.36.0", features = ["rt", "macros"] }
 uuid = { version = "1.7.0", features = ["v4", "serde", "js"] }
 
 [target.'cfg(windows)'.dependencies]
