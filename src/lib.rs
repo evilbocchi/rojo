@@ -2,11 +2,13 @@
 // Rojo's web UI currently.
 #![recursion_limit = "1024"]
 
+#[cfg(not(target_arch = "wasm32"))]
 pub mod cli;
 
 #[cfg(test)]
 mod tree_view;
 
+#[cfg(not(target_arch = "wasm32"))]
 mod auth_cookie;
 mod change_processor;
 mod glob;
@@ -24,6 +26,7 @@ mod snapshot;
 mod snapshot_middleware;
 mod syncback;
 mod variant_eq;
+#[cfg(not(target_arch = "wasm32"))]
 mod web;
 
 // TODO: Work out what we should expose publicly
@@ -37,4 +40,5 @@ pub use snapshot::{
 };
 pub use snapshot_middleware::{snapshot_from_vfs, Middleware, ScriptType};
 pub use syncback::{syncback_loop, FsSnapshot, SyncbackData, SyncbackSnapshot};
+#[cfg(not(target_arch = "wasm32"))]
 pub use web::interface as web_api;

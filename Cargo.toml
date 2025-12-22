@@ -39,6 +39,7 @@ members = ["crates/*"]
 
 [lib]
 name = "librojo"
+crate-type = ["cdylib", "rlib"]
 path = "src/lib.rs"
 
 [[bench]]
@@ -73,18 +74,10 @@ fs-err = "2.11.0"
 futures = "0.3.30"
 globset = "0.4.14"
 humantime = "2.1.0"
-hyper = { version = "0.14.28", features = ["server", "tcp", "http1"] }
-hyper-tungstenite = "0.11.0"
 jod-thread = "0.1.2"
 log = "0.4.21"
 num_cpus = "1.16.0"
-opener = "0.5.2"
 rayon = "1.9.0"
-reqwest = { version = "0.11.24", default-features = false, features = [
-    "blocking",
-    "json",
-    "rustls-tls",
-] }
 ritz = "0.1.0"
 roblox_install = "1.0.0"
 serde = { version = "1.0.197", features = ["derive", "rc"] }
@@ -94,7 +87,6 @@ strum = { version = "0.27", features = ["derive"] }
 toml = "0.5.11"
 termcolor = "1.4.1"
 thiserror = "1.0.57"
-tokio = { version = "1.36.0", features = ["rt", "rt-multi-thread", "macros"] }
 uuid = { version = "1.7.0", features = ["v4", "serde"] }
 clap = { version = "3.2.25", features = ["derive"] }
 profiling = "1.0.15"
@@ -104,6 +96,24 @@ data-encoding = "2.8.0"
 blake3 = "1.5.0"
 float-cmp = "0.9.0"
 indexmap = { version = "2.10.0", features = ["serde"] }
+
+[target.'cfg(not(all(target_arch = "wasm32", target_os = "unknown")))'.dependencies]
+hyper = { version = "0.14.28", features = ["server", "tcp", "http1"] }
+hyper-tungstenite = "0.11.0"
+opener = "0.5.2"
+reqwest = { version = "0.11.24", default-features = false, features = [
+    "blocking",
+    "json",
+    "rustls-tls",
+] }
+tokio = { version = "1.36.0", features = ["rt", "rt-multi-thread", "macros"] }
+
+[target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dependencies]
+getrandom = { version = "0.2", features = ["js"] }
+getrandom_03 = { package = "getrandom", version = "0.3", features = ["wasm_js"] }
+reqwest = { version = "0.11.24", default-features = false, features = ["json"] }
+tokio = { version = "1.36.0", features = ["rt", "macros"] }
+uuid = { version = "1.7.0", features = ["v4", "serde", "js"] }
 
 [target.'cfg(windows)'.dependencies]
 winreg = "0.10.1"
