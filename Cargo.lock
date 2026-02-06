@@ -1325,6 +1325,7 @@ dependencies = [
  "fs-err",
  "notify",
  "serde",
+ "tempfile",
 ]
 
 [[package]]
