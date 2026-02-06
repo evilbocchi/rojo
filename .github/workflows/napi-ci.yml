@@ -112,49 +112,6 @@ jobs:
             ${{ env.APP_NAME }}.*.node
             ${{ env.APP_NAME }}.*.wasm
           if-no-files-found: error
-  build-freebsd:
-    runs-on: ubuntu-latest
-    name: Build FreeBSD
-    steps:
-      - uses: actions/checkout@v6
-      - name: Build
-        id: build
-        uses: cross-platform-actions/action@v0.32.0
-        env:
-          DEBUG: napi:*
-          RUSTUP_IO_THREADS: 1
-        with:
-          operating_system: freebsd
-          version: "14.3"
-          memory: 8G
-          cpu_count: 3
-          environment_variables: "DEBUG RUSTUP_IO_THREADS"
-          shell: bash
-          run: |
-            sudo pkg install -y -f curl node libnghttp2 npm cmake
-            curl https://sh.rustup.rs -sSf --output rustup.sh
-            sh rustup.sh -y --profile minimal --default-toolchain stable
-            source "$HOME/.cargo/env"
-            echo "~~~~ rustc --version ~~~~"
-            rustc --version
-            echo "~~~~ node -v ~~~~"
-            node -v
-            pwd
-            ls -lah
-            whoami
-            env
-            freebsd-version
-            npm install
-            npm run build
-            rm -rf node_modules
-            rm -rf target
-            rm -rf .npm/cache
-      - name: Upload artifact
-        uses: actions/upload-artifact@v6
-        with:
-          name: bindings-freebsd
-          path: ${{ env.APP_NAME }}.*.node
-          if-no-files-found: error
   publish:
     name: Publish
     runs-on: ubuntu-latest
@@ -163,7 +120,6 @@ jobs:
       id-token: write
     needs:
       - build
-      - build-freebsd
     steps:
       - uses: actions/checkout@v6
       - name: Setup node
