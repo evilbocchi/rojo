@@ -39,7 +39,7 @@ members = ["crates/*"]
 
 [lib]
 name = "librojo"
-crate-type = ["rlib"]
+crate-type = ["cdylib", "rlib"]
 path = "src/lib.rs"
 
 [[bench]]
@@ -47,6 +47,8 @@ name = "build"
 harness = false
 
 [dependencies]
+napi = "3.0.0"
+napi-derive = "3.0.0"
 memofs = { version = "0.3.1", path = "crates/memofs" }
 
 # These dependencies can be uncommented when working on rbx-dom simultaneously
@@ -118,6 +120,7 @@ winreg = "0.10.1"
 
 [build-dependencies]
 memofs = { version = "0.3.0", path = "crates/memofs" }
+napi-build = "2"
 
 embed-resource = "1.8.0"
 anyhow = "1.0.80"

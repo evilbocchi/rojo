@@ -16,7 +16,7 @@ static PLUGIN_FILE_NAME: &str = "RojoManagedPlugin.rbxm";
 #[derive(Debug, Parser)]
 pub struct PluginCommand {
     #[clap(subcommand)]
-    subcommand: PluginSubcommand,
+    pub subcommand: PluginSubcommand,
 }
 
 /// Manages Rojo's Roblox Studio plugin.
