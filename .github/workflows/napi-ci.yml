@@ -21,26 +21,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: npm
-
-      - name: Install
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy, rustfmt
-
-      - name: Install dependencies
-        run: npm install
-
   build:
     strategy:
       fail-fast: false
@@ -188,7 +168,6 @@ jobs:
       contents: write
       id-token: write
     needs:
-      - lint
       - build-freebsd
     steps:
       - uses: actions/checkout@v6
