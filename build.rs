@@ -7,6 +7,7 @@ use fs_err as fs;
 use fs_err::File;
 use maplit::hashmap;
 use memofs::VfsSnapshot;
+use napi_build;
 use semver::Version;
 
 fn snapshot_from_fs_path(path: &Path) -> io::Result<VfsSnapshot> {
@@ -82,6 +83,8 @@ fn main() -> Result<(), anyhow::Error> {
     println!("cargo:rerun-if-changed=build/windows/rojo-manifest.rc");
     println!("cargo:rerun-if-changed=build/windows/rojo.manifest");
     embed_resource::compile("build/windows/rojo-manifest.rc");
+
+    napi_build::setup();
 
     Ok(())
 }

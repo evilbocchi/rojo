@@ -1,0 +1,51 @@
+{
+  "name": "@antivivi/rojo",
+  "version": "7.7.0-rc.1",
+  "description": "Enables professional-grade development tools for Roblox developers",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": "cli.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://www.github.com/rojo-rbx/rojo.git"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "cli.js",
+    "rojo.node"
+  ],
+  "napi": {
+    "binaryName": "rojo",
+    "packageName": "rojo",
+    "targets": [
+      "x86_64-pc-windows-msvc",
+      "x86_64-apple-darwin",
+      "x86_64-unknown-linux-gnu",
+      "x86_64-unknown-linux-musl",
+      "i686-pc-windows-msvc",
+      "armv7-unknown-linux-gnueabihf",
+      "aarch64-apple-darwin",
+      "aarch64-linux-android",
+      "aarch64-unknown-linux-musl",
+      "aarch64-pc-windows-msvc",
+      "armv7-linux-androideabi"
+    ]
+  },
+  "devDependencies": {
+    "@emnapi/core": "^1.8.1",
+    "@emnapi/runtime": "^1.8.1",
+    "@napi-rs/cli": "^3.5.1",
+    "chalk": "^5.6.2",
+    "npm-run-all2": "^8.0.4",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "artifacts": "napi artifacts",
+    "build": "napi build --release --platform",
+    "build:debug": "napi build --platform",
+    "prepublishOnly": "napi prepublish -t npm",
+    "preversion": "napi build --platform && git add .",
+    "version": "napi version"
+  }
+}
